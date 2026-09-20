@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA RTX 50-ES SZÉRIA & DLSS 5.0 ARCHÍVUM</title>
+    <style>
+        /* ALAP BEÁLLÍTÁSOK & FUTURISZTIKUS/NVIDIA ZÖLD TÉMA */
+        :root {
+            --bg-color: #050807;
+            --card-bg: #0d1410;
+            --accent-green: #76b900;
+            --accent-glow: rgba(118, 185, 0, 0.4);
+            --text-main: #ecf0ed;
+            --text-muted: #8e9b92;
+            --border-color: #1a2920;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        /* OLDALÁNS ÁLLÓ/ASZIMMETRIKUS KIALAKÍTÁS - CÍMSOR ÉS SZEKCIÓK */
+        header {
+            background: linear-gradient(135deg, #0d1410 0%, #050807 100%);
+            border-bottom: 2px solid var(--accent-green);
+            padding: 60px 20px;
+            text-align: left;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header h1 span {
+            color: var(--accent-green);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        header p {
+            color: var(--text-muted);
+            max-width: 800px;
+            font-size: 18px;
+        }
+
+        /* NAVIGÁCIÓS SÁV - KÁRTYA STÍLUSÚ MENÜ */
+        nav {
+            background-color: #080d09;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .nav-container a {
+            padding: 8px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container a:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* FŐ TARTALOM */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* SZEKCIÓK KIALAKÍTÁSA - MODERN KÁRTYÁK */
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 30px;
+            scroll-margin-top: 80px;
+        }
+
+        section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .spec-box {
+            background-color: #050807;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .spec-box h3 {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-size: 20px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .spec-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-box ul li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .spec-box ul li strong {
+            color: var(--text-main);
+        }
+
+        /* JS REJTETT PANEL GOMB ÉS ELEM */
+        .toggle-btn {
+            background-color: transparent;
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--accent-green);
+            color: #000000;
+        }
+
+        .hidden-panel {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #050807;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* DLSS SZEKCIÓ EXTRÁK */
+        .dlss-feature {
+            background: linear-gradient(90deg, #0d1410 0%, #14241a 100%);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        /* TÁBLÁZAT SZEKCIÓ */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #050807;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #0e1a12;
+            color: var(--accent-green);
+            font-size: 16px;
+        }
+
+        td {
+            color: var(--text-muted);
+        }
+
+        td.highlight {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* LÁBLÉC ÉS FIX GOMB */
+        footer {
+            background-color: #030504;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        #topBtn {
+            display: none; /* JS automatikusan jeleníti meg görgetéskor */
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 99;
+            background-color: var(--accent-green);
+            color: #000000;
+            border: none;
+            padding: 14px 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        #topBtn:hover {
+            transform: scale(1.05);
+            background-color: #8ce000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGÁCIÓ (SEMANTIC: NAV) -->
+    <nav>
+        <div class="nav-container">
+            <a href="#rtx5090">RTX 5090</a>
+            <a href="#rtx5080">RTX 5080</a>
+            <a href="#dlss5">DLSS 5.0 TECH</a>
+            <a href="#osszehasonlitas">SPECIFIKÁCIÓK</a>
+        </div>
+    </nav>
+
+    <!-- FEJLÉC (SEMANTIC: HEADER) -->
+    <header>
+        <div class="header-container">
+            <h1>NVIDIA <span>RTX 50-ES SZÉRIA</span> & DLSS 5.0</h1>
+            <p>A legújabb Blackwell architektúrára épülő RTX 5080 és RTX 5090 videókártyák, valamint a forradalmi DLSS 5.0 mesterséges intelligencia alapú képrekonstrukciós technológia áttekintése.</p>
+        </div>
+    </header>
+
+    <!-- FŐ TARTALOM (SEMANTIC: MAIN) -->
+    <main>
+
+        <!-- SZEKCIÓ 1: RTX 5090 (SEMANTIC: SECTION, ARTICLE) -->
+        <section id="rtx5090">
+            <h2>01. GeForce RTX 5090</h2>
+            <p>Az új architektúra abszolút zászlóshajója, amelyet a kompromisszummentes 4K és 8K játékra, valamint AI munkaterhelésekre terveztek.</p>
+            
+            <div class="grid-layout">
+                <article class="spec-box">
+                    <h3>Főbb Specifikációk</h3>
+                    <ul>
+                        <li><strong>Architektúra:</strong> Blackwell</li>
+                        <li><strong>VRAM:</strong> 32 GB GDDR7</li>
+                        <li><strong>Memória sávszélesség:</strong> 512-bit</li>
+                        <li><strong>TGP Fogyasztás:</strong> 600W</li>
+                    </ul>
+                </article>
+
+                <article class="spec-box">
+                    <h3>Teljesítmény Mátrix</h3>
+                    <p>A GDDR7 memóriának és a megduplázott Tensor magoknak köszönhetően a sugárkövetés (Ray Tracing) teljesítménye jelentősen meghaladja az előző generációt.</p>
+                    
+                    <button class="toggle-btn" onclick="toggleInfo('rtx5090-extra')">Extra Architektúra Részletek</button>
+                    
+                    <div id="rtx5090-extra" class="hidden-panel">
+                        <p>Az RTX 5090 több mint 24 000 CUDA maggal és az új 5. generációs Tensor magokkal érkezik, melyek kifejezetten a DLSS 5.0 AI szimulációira lettek optimalizálva.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SZEKCIÓ 2: RTX 5080 (SEMANTIC: SECTION, ARTICLE) -->
+        <section id="rtx5080">
+            <h2>02. GeForce RTX 5080</h2>
+            <p>A prémium kategóriás csúcskártya, amely kimagasló képkockasevességet nyújt 4K felbontás mellett, alacsonyabb fogyasztási mutatókkal.</p>
+            
+            <div class="grid-layout">
+                <article class="spec-box">
+                    <h3>Főbb Specifikációk</h3>
+                    <ul>
+                        <li><strong>Architektúra:</strong> Blackwell</li>
+                        <li><strong>VRAM:</strong> 16 GB GDDR7</li>
+                        <li><strong>Memória sávszélesség:</strong> 256-bit</li>
+                        <li><strong>TGP Fogyasztás:</strong> 400W</li>
+                    </ul>
+                </article>
+
+                <article class="spec-box">
+                    <h3>Gamer Fókusz</h3>
+                    <p>Ideális választás a legújabb AAA kategóriás játékokhoz maximális beállítások és aktív Sugárkövetés mellett.</p>
+
+                    <button class="toggle-btn" onclick="toggleInfo('rtx5080-extra')">Extra Architektúra Részletek</button>
+                    
+                    <div id="rtx5080-extra" class="hidden-panel">
+                        <p>Az RTX 5080 a GDDR7 memóriának köszönhetően jóval magasabb sávszélességet ér el, mint a korábbi RTX 4080 Super, így a 4K textúrák betöltése zökkenőmentes.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SZEKCIÓ 3: DLSS 5.0 (SEMANTIC: SECTION) -->
+        <section id="dlss5">
+            <h2>03. DLSS 5.0 Technológia</h2>
+            <p>A Deep Learning Super Sampling legújabb, 5. generációja kizárólag az RTX 50-es szérián érhető el, a Blackwell Tensor magok hardveres támogatásának köszönhetően.</p>
+
+            <div class="dlss-feature">
+                <h3>Újítások a DLSS 5.0-ban:</h3>
+                <p>A DLSS 5.0 bevezeti az **AI Neural Ray Reconstruction 2.0** és a **Multi-Frame Neural Generation** funkciókat. Ez nem csak a meglévő képkockák közé generál újakat, hanem valós időben javítja a megvilágítási és fizikai szimulációk pontosságát is.</p>
+            </div>
+
+            <button class="toggle-btn" onclick="toggleInfo('dlss5-extra')">Hogyan működik a DLSS 5.0?</button>
+
+            <div id="dlss5-extra" class="hidden-panel">
+                <p>A rendszer az alacsonyabb felbontású renderelt képet és a mozgásvektorokat továbbítja az AI modellnek, ami a másodperc törtrésze alatt rekonstruálja a 4K/8K képet, kiküszöbölve a mozgási elmosódásokat és a képhibákat.</p>
+            </div>
+        </section>
+
+        <!-- SZEKCIÓ 4: ÖSSZEHASONLÍTÁS (SEMANTIC: SECTION) -->
+        <section id="osszehasonlitas">
+            <h2>04. Generációs Összehasonlítás</h2>
+            <p>Az alábbi táblázat az RTX 50-es széria modelljeinek főbb mutatóit hasonlítja össze.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Modell</th>
+                            <th>Architektúra</th>
+                            <th>VRAM</th>
+                            <th>Memória Típus</th>
+                            <th>DLSS Támogatás</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>RTX 5090</strong></td>
+                            <td>Blackwell</td>
+                            <td class="highlight">32 GB</td>
+                            <td>GDDR7</td>
+                            <td class="highlight">DLSS 5.0 (Teljes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RTX 5080</strong></td>
+                            <td>Blackwell</td>
+                            <td>16 GB</td>
+                            <td>GDDR7</td>
+                            <td class="highlight">DLSS 5.0 (Teljes)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FIX VISSZA A TETEJÉRE GOMB -->
+    <button id="topBtn" onclick="visszaATetejere()">↑ Tetejére</button>
+
+    <!-- LÁBLÉC (SEMANTIC: FOOTER) -->
+    <footer>
+        <p>© 2026 NVIDIA RTX Archívum — Oktatási célú bemutató oldal.</p>
+    </footer>
+
+    <!-- JAVASCRIPT KÓD -->
+    <script>
+        // 1. Részletek panel megjelenítése / elrejtése (Toggle)
+        function toggleInfo(panelId) {
+            var panel = document.getElementById(panelId);
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        }
+
+        // 2. Vissza a tetejére gomb működése (Smooth Scroll)
+        function visszaATetejere() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 3. Görgetés figyelése: a gomb csak akkor jelenik meg, ha lejjebb görgetünk
+        window.onscroll = function() {
+            var gomb = document.getElementById("topBtn");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                gomb.style.display = "block";
+            } else {
+                gomb.style.display = "none";
+            }
+        };
+
+        // 4. Smooth scroll a navigációs linkekre
+        var navLinkek = document.querySelectorAll('nav a');
+        for (var i = 0; i < navLinkek.length; i++) {
+            navLinkek[i].onclick = function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('href');
+                var targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            };
+        }
+    </script>
+</body>
+</html>
